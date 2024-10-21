@@ -1,0 +1,9 @@
+#Komande za kompajliranje i pravljenje staticke biblioteke
+ gcc -c kruzna_dvostruka_lista.c -o kruzna_dvostruka_lista.o
+ ar -rs libkruzna_dvostruka_lista.a kruzna_dvostruka_lista.c
+#Komande za kompajliranje programa zajedno sa statickom bibliotekom
+ gcc -g ../KruznaDvostrukaLista/main.c -I ../KruznaDvostrukaLista/ -L ../KruznaDvostrukaLista/ -static -lkruzna_dvostruka_lista -o main
+#Pokretanje programa 
+ ./main
+#Pokretanje MISRE
+ cl6x --include_path=$TI_INCLUDE --compile_only --check_misra=all main.c

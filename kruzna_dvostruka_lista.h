@@ -6,6 +6,8 @@
 #include <inttypes.h>
 #include <assert.h>
 #include <stdlib.h>
+/*****Potrebni define-ovi*****/
+#define MAX_LIST_SIZE 100
 /*****Pragme vezane za MISRA standard*****/
 #pragma CHECK_MISRA("-5.4") /*Nema svrhe primeniti u ovom zadatku*/
 #pragma CHECK_MISRA("-20.9") /*Nema svrhe primeniti jer se u postavci trazi eksplicitno da se korisit funkcije za ispis*/
