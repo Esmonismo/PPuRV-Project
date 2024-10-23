@@ -13,10 +13,11 @@
 
 #include "kruzna_dvostruka_lista.h"
 
-void printAndRemoveNth(struct node** element, uint_least8_t n);
+void printAndRemoveNth(struct node** element, uint_least8_t nIter);
 
 /*****Funcija za ispis i izbacivanje elemenata*****/
-void printAndRemoveNth(struct node** element, uint_least8_t n){
+void printAndRemoveNth(struct node** element, uint_least8_t nIter)
+{
     struct node* current = *element;
 
     if (current == NULL)
@@ -29,7 +30,8 @@ void printAndRemoveNth(struct node** element, uint_least8_t n){
 
     while (current != current->tail)
     {
-        for (uint_least8_t i = 1; i < n; i++)
+        uint_least8_t cnt = (uint_least8_t)1;
+        for (cnt; cnt <= nIter; cnt++)
         {
             if (count % (uint_least8_t)2 == (uint_least8_t)0)
             {
@@ -58,10 +60,10 @@ void printAndRemoveNth(struct node** element, uint_least8_t n){
 /*****Main funkcija - testiranje rada modula*****/
 int main(void){
 
-    uint_least8_t n;
-    uint_least8_t i;
-    uint_least8_t initial;
-    uint_least16_t list;
+    uint_least8_t n = (uint_least8_t)0;
+    uint_least8_t i = (uint_least8_t)0;
+    uint_least8_t initial = (uint_least8_t)0; 
+    uint_least16_t list = (uint_least8_t)0;
     /*Inicijalizacija liste i dodavanje elemenata na pocetku liste i na kraju*/
     struct node* node = circularInit((uint_least8_t)10);
     node = addAtBeginning(node, (uint_least8_t)9);
@@ -96,12 +98,15 @@ int main(void){
     scanf("%"SCNdLEAST8,&initial);
     node = circularInit(initial);
     assert(node != NULL);
-    printf("Uneti elemente liste(tretirati broj 256 kao prekid unosa):");
+    printf("Uneti elemente liste(brojevi izvan opsega vrednosi tretirati kao prekid unosa):");
     printf("\n");
-    for (i = 0; i < MAX_LIST_SIZE; i++)
+    for (; i < (uint_least8_t)MAX_LIST_SIZE; i++)
     {
         scanf("%"SCNdLEAST16,&list);
-        if(list >= 256) break;
+        if(list >= (uint_least16_t)256)
+        {
+            break;
+        }
         addAtEnd(node, (uint_least8_t)list);
     }
     print(node);

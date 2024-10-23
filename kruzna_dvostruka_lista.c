@@ -1,6 +1,7 @@
 #include "kruzna_dvostruka_lista.h"
 
-struct node* circularInit(uint_least8_t data){
+struct node* circularInit(uint_least8_t data)
+{
     struct node* first = (struct node*)malloc(sizeof(struct node));
     first->number = data;
     first->head = first;
@@ -8,83 +9,101 @@ struct node* circularInit(uint_least8_t data){
     return first;
 }
 
-struct node* addAtBeginning(struct node* node, uint_least8_t data){
+struct node* addAtBeginning(struct node* bNode, uint_least8_t bData)
+{
+    assert(bNode != NULL);
     struct node* newNode = (struct node*)malloc(sizeof(struct node));
-    assert(node != NULL);
-    struct node* temp = node->head;
-    newNode->number = data;
+    if (newNode == NULL)
+    {
+        printf("No memory for element: %"PRIdLEAST8, bData);
+    }
+    struct node* temp = bNode->head;
+    newNode->number = bData;
     newNode->head = temp;
-    newNode->tail = node;
+    newNode->tail = bNode;
     temp->tail = newNode;
-    node->head = newNode;
+    bNode->head = newNode;
     return newNode;
 }
 
-void addAtEnd(struct node* node, uint_least8_t data){
+void addAtEnd(struct node* eNode, uint_least8_t eData)
+{
+    assert(eNode != NULL);
     struct node* newNode = (struct node*)malloc(sizeof(struct node));
-    assert(node != NULL);
-    struct node* temp = node->head;
-    newNode->number = data;
+    if (newNode == NULL)
+    {
+        printf("No memory for element: %"PRIdLEAST8, eData);
+    }
+    struct node* temp = eNode->head;
+    newNode->number = eData;
     newNode->tail = temp->tail;
     newNode->head = temp;
     temp->tail = newNode;
-    node->head = newNode; 
+    eNode->head = newNode; 
 }
 
-void addAtPosition(struct node* node, uint_least8_t data, uint_least8_t position){
-    assert(node != NULL);
+void addAtPosition(struct node* pNode, uint_least8_t pData, uint_least8_t position)
+{
+    assert(pNode != NULL);
     struct node* newNode = (struct node*)malloc(sizeof(struct node));
-    struct node* temp = node;
+    if (newNode == NULL)
+    {
+        printf("No memory for element: %"PRIdLEAST8, pData);
+    }
+    struct node* temp = pNode;
     while (position > 1)
     {
         temp = temp->tail;
         position--;
     }
-    newNode->number = data;
+    newNode->number = pData;
     newNode->head = temp->head;
     newNode->tail = temp;
     temp->head->tail = newNode;
     temp->head = newNode;
 }
 
-struct node* deleteFirst(struct node* node){
-    assert(node != NULL);
-    struct node* temp = node->tail;
-    if (temp == node)
+struct node* deleteFirst(struct node* fNode)
+{
+    assert(fNode != NULL);
+    struct node* temp = fNode->tail;
+    if (temp == fNode)
     {
-        free(node);
-        node = NULL;
-        return node;
+        free(fNode);
+        fNode = NULL;
+        return fNode;
     }
-    node->head->tail = temp;
-    temp->head = node->head;
-    free(node);
+    fNode->head->tail = temp;
+    temp->head = fNode->head;
+    free(fNode);
 
-    node = NULL;
+    fNode = NULL;
     return temp;
 }
 
-void deleteLast(struct node* node){
-    assert(node != NULL);
-    struct node* temp = node->head;
-    if (temp == node)
+void deleteLast(struct node* lNode)
+{
+    assert(lNode != NULL);
+    struct node* temp = lNode->head;
+    if (temp == lNode)
     {
-        free(node);
-        node = NULL;
+        free(lNode);
+        lNode = NULL;
     }
-    node->head = temp->head;
-    temp->head->tail = node;
+    lNode->head = temp->head;
+    temp->head->tail = lNode;
     free(temp);
     temp = NULL;
 }
 
-void deleteAtPosition(struct node* node, uint_least8_t position){
-    assert(node != NULL);
-    struct node* temp = node;
-    while (position > 1)
+void deleteAtPosition(struct node* dpNode, uint_least8_t dPosition)
+{
+    assert(dpNode != NULL);
+    struct node* temp = dpNode;
+    while (dPosition > 1)
     {
         temp = temp->tail;
-        position--;
+        dPosition--;
     }
     temp->head->tail = temp->tail;
     temp->tail->head = temp->head;
@@ -92,10 +111,11 @@ void deleteAtPosition(struct node* node, uint_least8_t position){
     temp = NULL;
 }
 
-void print(struct node* node){
-    struct node* pom = node;
+void print(struct node* printNode)
+{
+    struct node* pom = printNode;
     printf("%"PRIdLEAST8"\t",pom->number);
-    while (pom != node->head)
+    while (pom != printNode->head)
     {
         pom = pom->tail;
         printf("%"PRIdLEAST8"\t",pom->number);
